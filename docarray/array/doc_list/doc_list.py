@@ -335,6 +335,9 @@ class DocList(
         if cls.doc_type != AnyDoc:
             raise TypeError(f'{cls} object is not subscriptable')
 
+        if isinstance(item, tuple) and len(item) == 1:
+            item = item[0]
+
         if isinstance(item, type) and safe_issubclass(item, BaseDocWithoutId):
             return AnyDocArray.__class_getitem__.__func__(cls, item)  # type: ignore
         if (
